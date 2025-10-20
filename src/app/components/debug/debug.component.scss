@@ -1,0 +1,46 @@
+.debug-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 9999;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+  border: none;
+  box-shadow: none;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.badge {
+  font-size: 0.75em;
+}
+
+.form-check-input:disabled {
+  opacity: 0.7;
+}
+
+.list-unstyled li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .debug-panel {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100%;
+    margin: 10px;
+  }
+}

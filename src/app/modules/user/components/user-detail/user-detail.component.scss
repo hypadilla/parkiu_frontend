@@ -1,0 +1,118 @@
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  background-color: var(--color-banner);
+  color: var(--color-primary-text);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+h6 {
+  color: var(--color-primary-text);
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.user-info-section {
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-label {
+  font-weight: 500;
+  color: var(--color-primary-text);
+  width: 150px;
+}
+
+.info-value {
+  color: #333;
+}
+
+.permissions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.permission-badge {
+  background-color: var(--color-disponible);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+/* Estilos para los badges de rol */
+.role-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-primary-text);
+}
+
+.role-admin {
+  background-color: rgba(210, 38, 48, 0.2);
+  border: 1px solid rgba(210, 38, 48, 0.5);
+  color: #9a1c22;
+}
+
+.role-user {
+  background-color: rgba(0, 123, 255, 0.2);
+  border: 1px solid rgba(0, 123, 255, 0.5);
+  color: #0056b3;
+}
+
+.role-operator {
+  background-color: rgba(255, 193, 7, 0.2);
+  border: 1px solid rgba(255, 193, 7, 0.5);
+  color: #a17c00;
+}
+
+.role-guest {
+  background-color: rgba(23, 162, 184, 0.2);
+  border: 1px solid rgba(23, 162, 184, 0.5);
+  color: #0f6674;
+}
+
+.btn-outline-primary {
+  color: var(--color-disponible);
+  border-color: var(--color-disponible);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-disponible);
+  color: white;
+}
+
+.btn-outline-danger {
+  color: var(--color-ocupado);
+  border-color: var(--color-ocupado);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--color-ocupado);
+  color: white;
+}
+
+.btn-outline-secondary {
+  color: var(--color-primary-text);
+  border-color: var(--color-primary-text);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--color-primary-text);
+  color: white;
+}

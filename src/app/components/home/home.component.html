@@ -1,0 +1,181 @@
+<div class="container-fluid p-0">
+  <nav class="navbar navbar-expand-lg mb-4">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">
+        <strong>PARKIU</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/reservations" routerLinkActive="active">Estacionamientos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/reports" routerLinkActive="active">Reportes</a>
+          </li>
+          <li class="nav-item" *ngIf="'CAN_VIEW_USERS' | hasPermission">
+            <a class="nav-link" routerLink="/users" routerLinkActive="active">Usuarios</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center" *ngIf="currentUser">
+          <span class="me-3 text-white">Bienvenido, {{currentUser.name}}</span>
+          <div class="btn-group">
+            <button class="btn btn-light" (click)="openProfileModal()">
+              <i class="bi bi-person-circle me-1"></i>
+              Mi Perfil
+            </button>
+            <button class="btn btn-outline-light" (click)="logout()" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              <i class="bi bi-box-arrow-right me-1"></i>
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Banner con recomendaciones -->
+  <div class="banner py-2 mb-4">
+    <div class="container d-flex align-items-center">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      <div class="marquee">
+        <span>Recomendaciones: {{ recommendationText }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card dashboard-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Estado del Estacionamiento</h5>
+            <div>
+              <span class="badge bg-success me-2">{{ lastUpdateText }}</span>
+              <button class="btn btn-sm btn-outline-primary" (click)="loadParkingData()">
+                <i class="bi bi-arrow-clockwise"></i> Actualizar
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Resumen de estadísticas -->
+            <div class="row stats-row">
+              <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card card-disponible">
+                  <h3>{{ parkingStatus?.disponibles || 0 }}</h3>
+                  <p>Disponibles</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card card-ocupado">
+                  <h3>{{ parkingStatus?.ocupados || 0 }}</h3>
+                  <p>Ocupados</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card card-reservado">
+                  <h3>{{ parkingStatus?.reservados || 0 }}</h3>
+                  <p>Reservados</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card card-inhabilitado">
+                  <h3>{{ parkingStatus?.inhabilitados || 0 }}</h3>
+                  <p>Inhabilitados</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Visualización gráfica del estacionamiento -->
+            <div class="mt-4">
+              <h5 class="mb-3">Mapa de Estacionamiento</h5>
+              
+              <!-- Leyenda -->
+              <div class="mb-3 d-flex justify-content-center flex-wrap">
+                <div class="legend-item">
+                  <div class="legend-color bg-disponible"></div>
+                  <span>Disponible</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color bg-ocupado"></div>
+                  <span>Ocupado</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color bg-reservado"></div>
+                  <span>Reservado</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color bg-inhabilitado"></div>
+                  <span>Inhabilitado</span>
+                </div>
+              </div>
+              
+              <!-- Grid de parqueaderos con estructura de móvil -->
+              <app-parking-grid 
+                [parkingSpaces]="parkingSpaces"
+                (spaceClicked)="onParkingSpaceClick($event)">
+              </app-parking-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <div class="card feature-card">
+              <div class="card-body">
+                <div class="icon-container mb-3">
+                  <i class="bi bi-p-square-fill"></i>
+                </div>
+                <h5 class="card-title">Estacionamientos</h5>
+                <p class="card-text">Gestiona los espacios de estacionamiento disponibles.</p>
+                <a routerLink="/reservations" class="btn btn-primary w-100">Ir a reservas</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3" *ngIf="'CAN_VIEW_USERS' | hasPermission">
+            <div class="card feature-card">
+              <div class="card-body">
+                <div class="icon-container mb-3">
+                  <i class="bi bi-people-fill"></i>
+                </div>
+                <h5 class="card-title">Usuarios</h5>
+                <p class="card-text">Administra los usuarios del sistema.</p>
+                <a routerLink="/users" class="btn btn-primary w-100">Ir a usuarios</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card feature-card">
+              <div class="card-body">
+                <div class="icon-container mb-3">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+                <h5 class="card-title">Reportes</h5>
+                <p class="card-text">Visualiza estadísticas y reportes del sistema.</p>
+                <a routerLink="/reports" class="btn btn-primary w-100">Ver reportes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="mt-4 text-center">
+      <p class="text-muted">© 2025 Parkiu - Sistema de Gestión de Estacionamientos</p>
+    </footer>
+  </div>
+</div>
+
+<!-- Toasts de notificaciones -->
+<app-toast [messages]="notifications"></app-toast>
+
+<!-- Panel de debug (solo en desarrollo) -->
+<app-debug *ngIf="currentUser"></app-debug>

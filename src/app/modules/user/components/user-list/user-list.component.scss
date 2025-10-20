@@ -1,0 +1,60 @@
+.table {
+  th, td {
+    vertical-align: middle;
+  }
+}
+
+.btn-group {
+  .btn {
+    margin-right: 0.25rem;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  background-color: var(--color-banner);
+  color: var(--color-primary-text);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para los badges de rol */
+.role-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-primary-text);
+}
+
+.role-admin {
+  background-color: rgba(210, 38, 48, 0.2);
+  border: 1px solid rgba(210, 38, 48, 0.5);
+  color: #9a1c22;
+}
+
+.role-user {
+  background-color: rgba(0, 123, 255, 0.2);
+  border: 1px solid rgba(0, 123, 255, 0.5);
+  color: #0056b3;
+}
+
+.role-operator {
+  background-color: rgba(255, 193, 7, 0.2);
+  border: 1px solid rgba(255, 193, 7, 0.5);
+  color: #a17c00;
+}
+
+.role-guest {
+  background-color: rgba(23, 162, 184, 0.2);
+  border: 1px solid rgba(23, 162, 184, 0.5);
+  color: #0f6674;
+}

@@ -1,0 +1,9 @@
+<div class="toast-container">
+  <div class="toast" *ngFor="let msg of messages; let i = index">
+    <span>{{ msg }}</span>
+    <button type="button" class="close" (click)="remove(i)">×</button>
+  </div>
+  <div *ngIf="messages.length === 0" class="placeholder"></div>
+</div>
+
+

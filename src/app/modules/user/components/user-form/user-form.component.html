@@ -1,0 +1,170 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{ isEditMode ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+    <button class="btn btn-outline-secondary" (click)="cancel()">
+      <i class="bi bi-arrow-left me-2"></i>Volver
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="mb-0">{{ isEditMode ? 'Actualizar información del usuario' : 'Registrar nuevo usuario' }}</h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-2">Cargando datos del usuario...</p>
+      </div>
+
+      <form *ngIf="!loading" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <!-- Información básica -->
+          <div class="col-md-6">
+            <h6 class="mb-3">Información básica</h6>
+            
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Nombre de usuario</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                formControlName="username"
+                [class.is-invalid]="userForm.get('username')?.invalid && userForm.get('username')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="userForm.get('username')?.errors?.['required']">
+                El nombre de usuario es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="userForm.get('username')?.errors?.['minlength']">
+                El nombre de usuario debe tener al menos 3 caracteres.
+              </div>
+            </div>
+            
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                Contraseña {{ isEditMode ? '(dejar en blanco para mantener la actual)' : '' }}
+              </label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                formControlName="password"
+                [class.is-invalid]="userForm.get('password')?.invalid && userForm.get('password')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="userForm.get('password')?.errors?.['required']">
+                La contraseña es obligatoria.
+              </div>
+              <div class="invalid-feedback" *ngIf="userForm.get('password')?.errors?.['minlength']">
+                La contraseña debe tener al menos 6 caracteres.
+              </div>
+            </div>
+            
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                formControlName="email"
+                [class.is-invalid]="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="userForm.get('email')?.errors?.['required']">
+                El correo electrónico es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="userForm.get('email')?.errors?.['email']">
+                Ingrese un correo electrónico válido.
+              </div>
+            </div>
+          </div>
+          
+          <!-- Información personal -->
+          <div class="col-md-6">
+            <h6 class="mb-3">Información personal</h6>
+            
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name"
+                [class.is-invalid]="userForm.get('name')?.invalid && userForm.get('name')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="userForm.get('name')?.errors?.['required']">
+                El nombre es obligatorio.
+              </div>
+            </div>
+            
+            <!-- Last Name -->
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Apellido</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="lastName" 
+                formControlName="lastName"
+                [class.is-invalid]="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched"
+              >
+              <div class="invalid-feedback" *ngIf="userForm.get('lastName')?.errors?.['required']">
+                El apellido es obligatorio.
+              </div>
+            </div>
+            
+            <!-- Role -->
+            <div class="mb-3">
+              <label for="role" class="form-label">Rol</label>
+              <select 
+                class="form-select" 
+                id="role" 
+                formControlName="role"
+                [class.is-invalid]="userForm.get('role')?.invalid && userForm.get('role')?.touched"
+              >
+                <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="userForm.get('role')?.errors?.['required']">
+                El rol es obligatorio.
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Permissions -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <h6 class="mb-3">Permisos</h6>
+            <div class="permissions-container">
+              <div class="form-check form-check-inline" *ngFor="let permission of availablePermissions">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  [id]="permission" 
+                  [checked]="isPermissionSelected(permission)" 
+                  (change)="togglePermission(permission)"
+                >
+                <label class="form-check-label" [for]="permission">{{ permission }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Buttons -->
+        <div class="d-flex justify-content-end mt-4">
+          <button type="button" class="btn btn-outline-secondary me-2" (click)="cancel()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="submitting">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

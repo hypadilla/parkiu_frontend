@@ -1,0 +1,93 @@
+<div class="debug-panel" *ngIf="currentUser">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="mb-0">🔧 Panel de Debug - Permisos y WebSocket</h5>
+    </div>
+    <div class="card-body">
+      <!-- Información del Usuario -->
+      <div class="mb-4">
+        <h6>👤 Usuario Actual</h6>
+        <p class="mb-1"><strong>Nombre:</strong> {{ currentUser.name }}</p>
+        <p class="mb-1"><strong>Email:</strong> {{ currentUser.email }}</p>
+        <p class="mb-1"><strong>Rol:</strong> 
+          <span class="badge" [ngClass]="{
+            'bg-danger': isAdmin(),
+            'bg-primary': isUser(),
+            'bg-warning': isDevice()
+          }">
+            {{ getCurrentRole() }}
+          </span>
+        </p>
+      </div>
+
+      <!-- Permisos del Usuario -->
+      <div class="mb-4">
+        <h6>🔐 Permisos Asignados ({{ userPermissions.length }})</h6>
+        <div class="row">
+          <div class="col-md-6" *ngFor="let permission of userPermissions">
+            <span class="badge bg-success me-1 mb-1">{{ permission }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verificación de Permisos Específicos -->
+      <div class="mb-4">
+        <h6>✅ Verificación de Permisos</h6>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="hasPermission('CAN_VIEW_USERS')" disabled>
+              <label class="form-check-label">Ver Usuarios</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="hasPermission('CAN_VIEW_PARKING_CELLS')" disabled>
+              <label class="form-check-label">Ver Parqueaderos</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="hasPermission('CAN_VIEW_DASHBOARD')" disabled>
+              <label class="form-check-label">Ver Dashboard</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="hasPermission('CAN_VIEW_RECOMMENDATIONS')" disabled>
+              <label class="form-check-label">Ver Recomendaciones</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="hasPermission('CAN_MANAGE_SYSTEM')" disabled>
+              <label class="form-check-label">Gestionar Sistema</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="hasPermission('CAN_CREATE_RESERVATION')" disabled>
+              <label class="form-check-label">Crear Reservas</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eventos WebSocket Suscritos -->
+      <div class="mb-4">
+        <h6>🔌 Eventos WebSocket Suscritos ({{ subscribedEvents.length }})</h6>
+        <div class="row">
+          <div class="col-md-6" *ngFor="let event of subscribedEvents">
+            <span class="badge bg-info me-1 mb-1">{{ event }}</span>
+          </div>
+        </div>
+        <small class="text-muted">
+          Solo se suscribe a eventos relevantes según los permisos del usuario
+        </small>
+      </div>
+
+      <!-- Optimizaciones Aplicadas -->
+      <div class="mb-4">
+        <h6>⚡ Optimizaciones Aplicadas</h6>
+        <ul class="list-unstyled">
+          <li>✅ <strong>Componentes condicionales:</strong> Solo se muestran elementos con permisos</li>
+          <li>✅ <strong>APIs selectivas:</strong> Solo se consumen servicios permitidos</li>
+          <li>✅ <strong>WebSocket inteligente:</strong> Solo eventos relevantes</li>
+          <li>✅ <strong>Carga reducida:</strong> Menos peticiones HTTP innecesarias</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

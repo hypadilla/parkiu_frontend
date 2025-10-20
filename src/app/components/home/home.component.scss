@@ -1,0 +1,211 @@
+/* Estilos de la barra de navegación */
+.navbar {
+  background-color: var(--color-disponible);
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.nav-link.active {
+  color: white !important;
+  border-bottom: 2px solid white;
+}
+
+/* Banner de recomendaciones */
+.banner {
+  background-color: var(--color-banner);
+  color: var(--color-primary-text);
+  font-weight: 500;
+}
+
+.banner .container {
+  display: flex;
+  align-items: center;
+}
+
+.banner i {
+  flex: 0 0 auto;
+}
+
+.marquee {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+@keyframes marqueeIcon {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+/* Tarjetas del dashboard */
+.card {
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card .card-header {
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1.25rem 1.5rem;
+}
+
+.card-title {
+  color: var(--color-primary-text);
+  font-weight: 600;
+}
+
+/* Tarjetas de estadísticas */
+.stats-row {
+  padding: 1rem 0;
+}
+
+.stat-card {
+  padding: 1.25rem;
+  border-radius: 8px;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  margin-bottom: 0;
+  color: var(--color-primary-text);
+  font-weight: 500;
+}
+
+/* Mapa de estacionamiento */
+// Los estilos del grid están en parking-grid.component.scss
+
+/* Leyenda */
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+.bg-disponible {
+  background-color: var(--color-disponible);
+}
+
+.bg-ocupado {
+  background-color: var(--color-ocupado);
+}
+
+.bg-reservado {
+  background-color: var(--color-reservado);
+}
+
+.bg-inhabilitado {
+  background-color: var(--color-inhabilitado);
+}
+
+/* Tarjetas de funcionalidades */
+.feature-card {
+  height: 100%;
+}
+
+.feature-card .card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.feature-card .btn {
+  margin-top: auto;
+}
+
+.icon-container {
+  font-size: 2.5rem;
+  color: var(--color-disponible);
+  text-align: center;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--color-disponible);
+  border-color: var(--color-disponible);
+  padding: 0.6rem 1.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: rgba(0, 132, 61, 0.9);
+  border-color: var(--color-disponible);
+  transform: translateY(-2px);
+}
+
+/* Insignias */
+.badge {
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  border-radius: 30px;
+}
+
+/* Footer */
+footer {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stat-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .icon-container {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,62 @@
+<div class="container py-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Reportes</h4>
+    <a routerLink="/" class="btn btn-outline-primary">Volver</a>
+  </div>
+  <div *ngIf="loading" class="alert alert-info">Cargando...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="!loading && !error">
+    <div class="row g-3 mb-3">
+      <div class="col-md-3 col-6">
+        <div class="card p-3 text-center">
+          <div class="h2 mb-1">{{ disponibles }}</div>
+          <div class="text-muted">Disponibles</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card p-3 text-center">
+          <div class="h2 mb-1">{{ ocupados }}</div>
+          <div class="text-muted">Ocupados</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card p-3 text-center">
+          <div class="h2 mb-1">{{ reservados }}</div>
+          <div class="text-muted">Reservados</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card p-3 text-center">
+          <div class="h2 mb-1">{{ inhabilitados }}</div>
+          <div class="text-muted">Inhabilitados</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3">
+      <h6 class="mb-3">Distribución actual</h6>
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Disponibles <span class="badge bg-success rounded-pill">{{ disponibles }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Ocupados <span class="badge bg-danger rounded-pill">{{ ocupados }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Reservados <span class="badge bg-warning text-dark rounded-pill">{{ reservados }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Inhabilitados <span class="badge bg-secondary rounded-pill">{{ inhabilitados }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <div class="text-muted">(Gráfico próximamente)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

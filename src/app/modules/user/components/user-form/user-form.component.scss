@@ -1,0 +1,88 @@
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  background-color: var(--color-banner);
+  color: var(--color-primary-text);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+h6 {
+  color: var(--color-primary-text);
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.permissions-container {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-check-inline {
+  margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-disponible);
+  border-color: var(--color-disponible);
+}
+
+/* Estilos para los badges de rol */
+.role-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-primary-text);
+}
+
+.role-admin {
+  background-color: rgba(210, 38, 48, 0.2);
+  border: 1px solid rgba(210, 38, 48, 0.5);
+  color: #9a1c22;
+}
+
+.role-user {
+  background-color: rgba(0, 123, 255, 0.2);
+  border: 1px solid rgba(0, 123, 255, 0.5);
+  color: #0056b3;
+}
+
+.role-operator {
+  background-color: rgba(255, 193, 7, 0.2);
+  border: 1px solid rgba(255, 193, 7, 0.5);
+  color: #a17c00;
+}
+
+.role-guest {
+  background-color: rgba(23, 162, 184, 0.2);
+  border: 1px solid rgba(23, 162, 184, 0.5);
+  color: #0f6674;
+}
+
+.btn-primary {
+  background-color: var(--color-disponible);
+  border-color: var(--color-disponible);
+}
+
+.btn-primary:hover {
+  background-color: rgba(0, 132, 61, 0.9);
+  border-color: var(--color-disponible);
+}
+
+.btn-outline-secondary {
+  color: var(--color-primary-text);
+  border-color: var(--color-primary-text);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--color-primary-text);
+  color: white;
+}

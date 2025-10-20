@@ -1,0 +1,182 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <button class="btn btn-outline-secondary me-3" routerLink="/">
+        <i class="bi bi-arrow-left me-2"></i>Volver
+      </button>
+      <h2 class="d-inline-block">Reservas de Estacionamiento</h2>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="success" class="alert alert-success">
+    {{ success }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-2">Cargando datos de estacionamiento...</p>
+  </div>
+
+  <div *ngIf="!loading">
+    <!-- Mapa visual de todas las celdas -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Mapa de Estacionamiento</h5>
+            <div class="legend-compact">
+              <span class="legend-compact-item"><span class="dot bg-disponible"></span> Disponible</span>
+              <span class="legend-compact-item"><span class="dot bg-ocupado"></span> Ocupado</span>
+              <span class="legend-compact-item"><span class="dot bg-reservado"></span> Reservado</span>
+              <span class="legend-compact-item"><span class="dot bg-inhabilitado"></span> Inhabilitado</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <app-parking-grid 
+              [parkingSpaces]="allParkingSpaces"
+              (spaceClicked)="onParkingSpaceClick($event)">
+            </app-parking-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen y acciones -->
+    <div class="row">
+      <!-- Celdas disponibles para reservar -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="bi bi-calendar-plus me-2"></i>
+              Celdas Disponibles ({{ availableCells.length }})
+            </h5>
+          </div>
+          <div class="card-body">
+            <div *ngIf="availableCells.length === 0" class="text-center py-3">
+              <i class="bi bi-info-circle" style="font-size: 2rem; color: var(--color-inhabilitado);"></i>
+              <p class="text-muted mt-2">No hay celdas disponibles en este momento.</p>
+            </div>
+            <div *ngIf="availableCells.length > 0" class="available-cells-list">
+              <p class="text-muted mb-3">Haz clic en una celda del mapa para reservarla</p>
+              <div class="cells-grid-compact">
+                <div 
+                  *ngFor="let cell of availableCells" 
+                  class="cell-compact disponible"
+                  (click)="openReservationModal(cell)"
+                  [title]="'Celda ' + cell.numero + ' - Disponible'">
+                  {{ cell.numero }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mis reservas -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="bi bi-calendar-check me-2"></i>
+              Mis Reservas ({{ myReservations.length }})
+            </h5>
+          </div>
+          <div class="card-body">
+            <div *ngIf="myReservations.length === 0" class="text-center py-3">
+              <i class="bi bi-calendar-x" style="font-size: 2rem; color: var(--color-inhabilitado);"></i>
+              <p class="text-muted mt-2">No tienes reservas activas.</p>
+            </div>
+            <div *ngIf="myReservations.length > 0" class="reserved-cells">
+              <div *ngFor="let cell of myReservations" class="reserved-cell-card mb-3">
+                <div class="card">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">
+                      <i class="bi bi-geo-alt-fill me-1"></i>
+                      Celda {{ cell.numero }}
+                    </h6>
+                    <span class="badge bg-warning text-dark">Reservada</span>
+                  </div>
+                  <div class="card-body">
+                    <div class="reservation-info">
+                      <div class="info-row">
+                        <i class="bi bi-person-fill"></i>
+                        <div>
+                          <strong>Ubicación:</strong> {{ cell.ubicacion }}
+                        </div>
+                      </div>
+                      <div class="info-row">
+                        <i class="bi bi-clock-fill"></i>
+                        <div>
+                          <strong>Última actualización:</strong> {{ formatDate(cell.ultimaActualizacion) }}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <button class="btn btn-danger btn-sm w-100 mt-3" (click)="cancelReservation(cell)">
+                      <i class="bi bi-calendar-x me-1"></i> Cancelar Reserva
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Reserva -->
+<div *ngIf="showReservationModal" class="modal-backdrop show"></div>
+<div *ngIf="showReservationModal" class="modal show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reservar Celda {{ selectedCell?.numero }}</h5>
+        <button type="button" class="btn-close" (click)="closeReservationModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="reservationForm">
+          <div class="mb-3">
+            <label for="startTime" class="form-label">
+              <i class="bi bi-clock me-1"></i>Hora de inicio *
+            </label>
+            <input type="datetime-local" class="form-control" id="startTime" formControlName="startTime">
+            <div *ngIf="reservationForm.get('startTime')?.invalid && reservationForm.get('startTime')?.touched" class="invalid-feedback d-block">
+              La hora de inicio es requerida.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="endTime" class="form-label">
+              <i class="bi bi-clock-history me-1"></i>Hora de finalización (opcional)
+            </label>
+            <input type="datetime-local" class="form-control" id="endTime" formControlName="endTime">
+          </div>
+          <div class="mb-3">
+            <label for="reason" class="form-label">
+              <i class="bi bi-card-text me-1"></i>Motivo de la reserva *
+            </label>
+            <input type="text" class="form-control" id="reason" formControlName="reason" placeholder="Ej: Reunión, Visita, Personal">
+            <div *ngIf="reservationForm.get('reason')?.invalid && reservationForm.get('reason')?.touched" class="invalid-feedback d-block">
+              El motivo de la reserva es requerido.
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeReservationModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" [disabled]="reservationForm.invalid || loading" (click)="submitReservation()">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+          Confirmar Reserva
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

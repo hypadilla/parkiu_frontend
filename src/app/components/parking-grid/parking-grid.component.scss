@@ -1,0 +1,149 @@
+.parking-grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.parking-block {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.parking-block-content {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.parking-column-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.parking-column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.parking-row-horizontal {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.parking-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  color: white;
+  
+  &.vertical {
+    width: 30px;
+    height: 30px;
+  }
+  
+  &.horizontal {
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+
+  .parking-number {
+    font-size: 0.7rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.parking-disponible {
+  background-color: var(--color-disponible);
+}
+
+.parking-ocupado {
+  background-color: var(--color-ocupado);
+}
+
+.parking-reservado {
+  background-color: var(--color-reservado);
+}
+
+.parking-inhabilitado {
+  background-color: var(--color-inhabilitado);
+  color: #333;
+}
+
+// Layout especial para las últimas 7 celdas
+.parking-block-special {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  border-top: 2px dashed rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.parking-special-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.parking-special-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.parking-special-spacer {
+  width: 20px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .parking-cell {
+    &.vertical, &.horizontal {
+      width: 25px;
+      height: 25px;
+    }
+    
+    .parking-number {
+      font-size: 0.6rem;
+    }
+  }
+
+  .parking-block-content {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .parking-cell {
+    &.vertical, &.horizontal {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .parking-number {
+      font-size: 0.5rem;
+    }
+  }
+
+  .parking-grid-container {
+    gap: 1rem;
+  }
+}
+
+
+

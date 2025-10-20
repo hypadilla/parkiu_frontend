@@ -1,0 +1,80 @@
+<div class="parking-grid-container">
+  <!-- Bloques de 18 celdas (excepto las últimas 7) -->
+  <div *ngFor="let group of groupedSpaces" class="parking-block">
+    <div class="parking-block-content">
+      <!-- Columna izquierda: 4 celdas verticales -->
+      <div class="parking-column-left">
+        <div 
+          *ngFor="let space of group.slice(0, 4)" 
+          class="parking-cell vertical"
+          [ngClass]="'parking-' + space.estado"
+          (click)="onSpaceClick(space)"
+          [title]="'Celda ' + space.numero + ' - ' + space.estado">
+          <span class="parking-number">{{ space.numero }}</span>
+        </div>
+      </div>
+
+      <!-- Columna derecha: 2 filas de 7 celdas horizontales -->
+      <div class="parking-column-right">
+        <!-- Primera fila horizontal (celdas 5-11) -->
+        <div class="parking-row-horizontal">
+          <div 
+            *ngFor="let space of group.slice(4, 11)" 
+            class="parking-cell horizontal"
+            [ngClass]="'parking-' + space.estado"
+            (click)="onSpaceClick(space)"
+            [title]="'Celda ' + space.numero + ' - ' + space.estado">
+            <span class="parking-number">{{ space.numero }}</span>
+          </div>
+        </div>
+
+        <!-- Segunda fila horizontal (celdas 12-18) -->
+        <div class="parking-row-horizontal">
+          <div 
+            *ngFor="let space of group.slice(11, 18)" 
+            class="parking-cell horizontal"
+            [ngClass]="'parking-' + space.estado"
+            (click)="onSpaceClick(space)"
+            [title]="'Celda ' + space.numero + ' - ' + space.estado">
+            <span class="parking-number">{{ space.numero }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Últimas 7 celdas con layout especial -->
+  <div *ngIf="lastSevenSpaces.length >= 7" class="parking-block-special">
+    <div class="parking-special-content">
+      <!-- 3 celdas -->
+      <div class="parking-special-group">
+        <div 
+          *ngFor="let space of lastSevenFirstThree" 
+          class="parking-cell horizontal"
+          [ngClass]="'parking-' + space.estado"
+          (click)="onSpaceClick(space)"
+          [title]="'Celda ' + space.numero + ' - ' + space.estado">
+          <span class="parking-number">{{ space.numero }}</span>
+        </div>
+      </div>
+
+      <!-- Espacio entre grupos -->
+      <div class="parking-special-spacer"></div>
+
+      <!-- 4 celdas -->
+      <div class="parking-special-group">
+        <div 
+          *ngFor="let space of lastSevenLastFour" 
+          class="parking-cell horizontal"
+          [ngClass]="'parking-' + space.estado"
+          (click)="onSpaceClick(space)"
+          [title]="'Celda ' + space.numero + ' - ' + space.estado">
+          <span class="parking-number">{{ space.numero }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

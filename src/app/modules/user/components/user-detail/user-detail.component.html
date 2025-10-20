@@ -1,0 +1,100 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Detalle de Usuario</h2>
+    <button class="btn btn-outline-secondary" (click)="goBack()">
+      <i class="bi bi-arrow-left me-2"></i>Volver
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-2">Cargando datos del usuario...</p>
+  </div>
+
+  <div *ngIf="!loading && user" class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">{{ user.name }} {{ user.lastName }}</h5>
+      <div class="btn-group">
+        <button class="btn btn-outline-primary" (click)="editUser()">
+          <i class="bi bi-pencil me-1"></i>Editar
+        </button>
+        <button class="btn btn-outline-danger" (click)="deleteUser()">
+          <i class="bi bi-trash me-1"></i>Eliminar
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="user-info-section">
+            <h6>Información de la cuenta</h6>
+            <div class="info-item">
+              <span class="info-label">Nombre de usuario:</span>
+              <span class="info-value">{{ user.username }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Correo electrónico:</span>
+              <span class="info-value">{{ user.email }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Rol:</span>
+              <span class="info-value">
+                <span class="badge role-badge" [ngClass]="{
+                  'role-admin': user.role === 'ADMIN',
+                  'role-user': user.role === 'USER',
+                  'role-operator': user.role === 'OPERATOR',
+                  'role-guest': user.role === 'GUEST'
+                }">
+                  {{ user.role }}
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="user-info-section">
+            <h6>Información personal</h6>
+            <div class="info-item">
+              <span class="info-label">Nombre:</span>
+              <span class="info-value">{{ user.name }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Apellido:</span>
+              <span class="info-value">{{ user.lastName }}</span>
+            </div>
+            <div class="info-item" *ngIf="user.createdDate">
+              <span class="info-label">Fecha de creación:</span>
+              <span class="info-value">{{ user.createdDate | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="info-item" *ngIf="user.lastModifiedDate">
+              <span class="info-label">Última modificación:</span>
+              <span class="info-value">{{ user.lastModifiedDate | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="user-info-section">
+            <h6>Permisos</h6>
+            <div *ngIf="user.permissions.length === 0" class="text-muted">
+              Este usuario no tiene permisos asignados.
+            </div>
+            <div *ngIf="user.permissions.length > 0" class="permissions-container">
+              <span *ngFor="let permission of user.permissions" class="permission-badge">
+                {{ permission }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
