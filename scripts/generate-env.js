@@ -21,7 +21,8 @@ const fullApiUrl = apiUrl.startsWith('http') ? `${apiUrl}/api` : `https://${apiU
 const fullWsUrl = wsUrl.startsWith('http') ? wsUrl : `https://${wsUrl}`;
 
 // Contenido del archivo environment
-const environmentContent = `export const environment = {
+const environmentContent = `// Generated at ${new Date().toISOString()}
+export const environment = {
   production: ${isProduction},
   apiUrl: '${fullApiUrl}',
   wsUrl: '${fullWsUrl}'
@@ -36,3 +37,4 @@ console.log('✅ Environment generado:');
 console.log(`   API URL: ${fullApiUrl}`);
 console.log(`   WS URL: ${fullWsUrl}`);
 console.log(`   Production: ${isProduction}`);
+console.log(`   Timestamp: ${new Date().toISOString()}`);
