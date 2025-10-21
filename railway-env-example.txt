@@ -1,0 +1,6 @@
+# Copia y pega estas variables en Railway Frontend Service
+
+API_URL=backend-production-48fd.up.railway.app
+WS_URL=backend-production-48fd.up.railway.app
+NODE_ENV=production
+PORT=3001
