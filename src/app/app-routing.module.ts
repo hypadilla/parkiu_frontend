@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { HealthComponent } from './components/health/health.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PermissionGuard } from './guards/permission.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'health', component: HealthComponent }, // Ruta pública para health check
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   {

@@ -15,6 +15,7 @@ import { ReservationsComponent } from './components/reservations/reservations.co
 import { ParkingGridComponent } from './components/parking-grid/parking-grid.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { DebugComponent } from './components/debug/debug.component';
+import { HealthComponent } from './components/health/health.component';
 import { HasPermissionPipe } from './pipes/has-permission.pipe';
 
 // Servicios
@@ -34,6 +35,7 @@ import { OptimizedParkingService } from './services/optimized-parking.service';
     ParkingGridComponent,
     ToastComponent,
     DebugComponent,
+    HealthComponent,
     HasPermissionPipe
   ],
   imports: [
