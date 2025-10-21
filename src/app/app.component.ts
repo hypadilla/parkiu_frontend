@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,4 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'Parkiu - Sistema de Gestión de Estacionamientos';
-  environment = environment;
-  currentTime = new Date().toISOString();
 }
