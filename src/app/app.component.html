@@ -1,1 +1,6 @@
+<div class="debug-info" style="position: fixed; top: 10px; right: 10px; background: #000; color: #fff; padding: 10px; z-index: 9999; font-size: 12px;">
+  <div>App loaded: {{ new Date().toISOString() }}</div>
+  <div>Environment: {{ environment.production ? 'production' : 'development' }}</div>
+  <div>API URL: {{ environment.apiUrl }}</div>
+</div>
 <router-outlet></router-outlet>
