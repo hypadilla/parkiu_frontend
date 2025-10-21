@@ -2,21 +2,9 @@
 
 echo "🚀 Iniciando Parkiu Frontend..."
 
-# Generar environment
-echo "📝 Generando environment..."
-node scripts/generate-env.js
-
-# Verificar que el environment se generó correctamente
-if [ ! -f "src/environments/environment.ts" ]; then
-    echo "❌ Error: No se pudo generar environment.ts"
-    exit 1
-fi
-
-echo "✅ Environment generado correctamente"
-
 # Construir la aplicación
 echo "🔨 Construyendo aplicación..."
-npm run build
+npm run build:prod
 
 # Verificar que el build fue exitoso
 if [ ! -d "dist/parkiu-frontend" ]; then
