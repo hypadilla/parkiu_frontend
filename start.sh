@@ -2,17 +2,14 @@
 
 echo "🚀 Iniciando Parkiu Frontend..."
 
-# Construir la aplicación
-echo "🔨 Construyendo aplicación..."
-npm run build:prod
-
 # Verificar que el build fue exitoso
 if [ ! -d "dist/parkiu-frontend" ]; then
-    echo "❌ Error: No se pudo construir la aplicación"
-    exit 1
+    echo "❌ Error: No se encontró el directorio dist/parkiu-frontend"
+    echo "🔨 Construyendo aplicación como fallback..."
+    npm run build:prod
 fi
 
-echo "✅ Aplicación construida correctamente"
+echo "✅ Aplicación lista"
 
 # Iniciar servidor
 echo "🌐 Iniciando servidor..."
