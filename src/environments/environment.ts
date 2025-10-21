@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://parkiubackend-production.up.railway.app/api',
-  wsUrl: 'https://parkiubackend-production.up.railway.app'
+  apiUrl: 'https://backend-production-48fd.up.railway.app/api',
+  wsUrl: 'https://backend-production-48fd.up.railway.app'
 };
